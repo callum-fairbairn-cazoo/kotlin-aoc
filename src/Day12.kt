@@ -93,7 +93,7 @@ fun findMinPath(input: List<List<String>>, start: String, end: List<String>, dir
     return counter - 1
 }
 
-fun parseInput(input: List<String>): List<List<String>> {
+private fun parseInput(input: List<String>): List<List<String>> {
     return input.map { line -> line.split("").filter { it !== "" } }
 }
 
