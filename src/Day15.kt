@@ -12,11 +12,7 @@ internal class Sensor(val position: Coordinate, val beacon: Coordinate) {
     }
 }
 
-fun part1(input: List<String>, xRange: IntRange, targetY: Int): Int {
-    // Parse min and max X of beacons to create an x range for target y value
-    // For each x value, check if it appears in any sensor field
-    // Increment each time
-
+private fun parseInput(input: List<String>): Pair<MutableList<Sensor>, MutableList<Coordinate>> {
     val sensors = mutableListOf<Sensor>()
     val beacons = mutableListOf<Coordinate>()
 
@@ -33,10 +29,16 @@ fun part1(input: List<String>, xRange: IntRange, targetY: Int): Int {
         sensors.add(Sensor(sensorLocation, beaconLocation))
         beacons.add(beaconLocation)
     }
+    return Pair(sensors, beacons)
+}
 
-    for (sensor in sensors) {
+internal fun getXRange(sensors: MutableList<Sensor>): IntRange {
+    return sensors.minOf { it.position.x - it.radius }..sensors.maxOf { it.position.x + it.radius }
+}
 
-    }
+fun part1(input: List<String>, targetY: Int): Int {
+    val (sensors, beacons) = parseInput(input)
+    val xRange = getXRange(sensors)
 
     return xRange.sumOf { currentX ->
         val currentCoordinate = Coordinate(currentX, targetY)
@@ -54,8 +56,8 @@ fun part2(input: List<String>) {
 
 fun main() {
     val testInput = readInput("Day15_test")
-    part1(testInput, -4..27, 10).println()
+    part1(testInput, 10).println()
 
     val input = readInput("Day15")
-    part1(input, -10_000_000..10_000_000, 2_000_000).println()
+    part1(input, 2_000_000).println()
 }
