@@ -12,7 +12,7 @@ internal class Sensor(val position: Coordinate, val beacon: Coordinate) {
     }
 }
 
-fun part1(input: List<String>, xRange: IntRange): Int {
+fun part1(input: List<String>, xRange: IntRange, targetY: Int): Int {
     // Parse min and max X of beacons to create an x range for target y value
     // For each x value, check if it appears in any sensor field
     // Increment each time
@@ -35,14 +35,13 @@ fun part1(input: List<String>, xRange: IntRange): Int {
     }
 
     for (sensor in sensors) {
-        println(sensor.position.x - sensor.radius)
+
     }
 
     return xRange.sumOf { currentX ->
-        val currentCoordinate = Coordinate(currentX, 10)
+        val currentCoordinate = Coordinate(currentX, targetY)
         val inSensorArea = sensors.any { it.has(currentCoordinate) }
         val notBeacon = beacons.all { beacon -> beacon != currentCoordinate }
-//        if (inSensorArea && notBeacon && currentX < 0) println(currentX)
         if (inSensorArea && notBeacon) 1 as Int else 0
     }
 }
@@ -55,8 +54,8 @@ fun part2(input: List<String>) {
 
 fun main() {
     val testInput = readInput("Day15_test")
-//    part1(testInput, -4..27).println()
+    part1(testInput, -4..27, 10).println()
 
     val input = readInput("Day15")
-    part1(input, -200_000..10_000_000).println()
+    part1(input, -10_000_000..10_000_000, 2_000_000).println()
 }
