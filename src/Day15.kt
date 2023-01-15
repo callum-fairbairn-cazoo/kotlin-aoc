@@ -1,7 +1,5 @@
 import kotlin.math.abs
 
-internal data class Coordinate(val x: Int, val y: Int)
-
 internal class Sensor(val position: Coordinate, val beacon: Coordinate) {
 
     fun getPerimeter(): MutableSet<Coordinate> {
